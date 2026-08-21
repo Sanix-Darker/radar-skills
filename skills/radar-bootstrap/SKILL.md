@@ -1,44 +1,58 @@
----
 name: radar-bootstrap
-description: Install or refresh radar and activate repository-level radar usage for deterministic code-search workflows.
+description: Install/refresh `radar` from the `rdar` launcher and enforce deterministic, anchor-first setup for repository navigation tasks in code-search workflows.
 license: MIT
 ---
 
 # radar bootstrap
 
-Use this skill whenever repository setup includes code search, navigation, or anchor retrieval tasks.
+Use this skill when a repository is onboarding for coding-agent navigation or when
+workflow quality requires deterministic source retrieval before broad scan.
 
-## Activation
+## What this skill guarantees
 
-1. Ensure `radar` is installed and working.
+- `radar` is available in the current environment.
+- `radar map` has been run for the current repository (or an actionable failure is raised).
+- search follows a strict anchor-first contract in subsequent agent steps.
+- fallback routes are refreshed when stale symbols/maps/routes are detected.
 
-   - If `radar --version` fails:
-     - If `cargo` is available, run:
-       - `cargo install --locked --force rdar`
-     - If no Rust toolchain exists, install radar via release artifacts from the radar website first.
+## Activation steps
 
-2. Run repository activation once:
-
+1. Ensure `cargo` is available in your environment.
+2. Validate the `radar` binary:
+   - run `radar --version`.
+3. If unavailable or broken:
+   - install from crates.io launcher:
+     - `cargo install --locked --force rdar`
+   - re-run `radar --version`.
+4. If this repository has not been mapped, run:
    - `./scripts/bootstrap-radar.sh`
-   - This installs radar when missing and runs `radar map`.
+   - this wrapper runs `radar map` and keeps output deterministic.
+5. For environments without Rust toolchain access:
+   - use the official release artifact for your platform from
+     `https://radar.sanixdk.xyz/downloads/`.
+   - then run `radar --version` and `radar map`.
 
-3. For this project, require radar-first search:
+## Runtime policy
 
-   - For direct code-discovery asks, run:
-     - `radar query "<task>"`
-   - If the query returns `FINAL SOURCE ANCHOR`, treat it as the preferred output.
-   - If the query misses, inspect:
-     - `.radar/ROUTES.md`
-     - `.radar/SYMBOLS.md`
-     - root `MAP.md`
-   - After map updates or stale anchors, run `radar refresh`.
+- Do not start broad repository scans before this skill has run.
+- Do not edit skill-owned artifacts (`.radar/`, `.map`, `.symbols`) outside the
+  expected workflow.
+- Keep commands deterministic and reproducible across invocations.
 
-4. If this project already uses `radar` locally and stale artifacts are expected, run:
-   - `radar route add "<task>" <file#symbol>`
-   - when you resolved a miss.
+## Ongoing usage (after bootstrap)
 
-## Safety and scope
+- For concrete code-retrieval asks:
+  - `radar query "<task>"`
+- If you get `FINAL SOURCE ANCHOR`, treat it as the preferred result.
+- On misses, use scoped fallback order:
+  1. `.radar/ROUTES.md`
+  2. `.radar/SYMBOLS.md`
+  3. root `MAP.md`
+- When a miss gets fixed, preserve it with:
+  - `radar route add "<task>" <file#symbol>`
 
-- Do not run broad directory grep/rg/find before querying radar.
-- Prefer one precise route per request.
-- Keep commands deterministic and avoid manual file guessing.
+## Verify end state
+
+- `radar --version`
+- `radar query "how does verify_token work?"`
+
