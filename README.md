@@ -52,3 +52,4 @@ radar query "where is the auth boundary?"
 - Keep `README.md` + skills in this repository as source of truth.
 - Tag skill-pack releases before sharing across teams.
 - To improve discoverability on `skills.sh`, keep this repo public and skills valid under the `skills/` convention.
+- Radar website and release evidence: https://radar.sanixdk.xyz
