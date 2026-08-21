@@ -1,3 +1,4 @@
+---
 name: radar-bootstrap
 description: Install/refresh `radar` from the `rdar` launcher and enforce deterministic, anchor-first setup for repository navigation tasks in code-search workflows.
 license: MIT
@@ -55,4 +56,3 @@ workflow quality requires deterministic source retrieval before broad scan.
 
 - `radar --version`
 - `radar query "how does verify_token work?"`
-

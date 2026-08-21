@@ -1,3 +1,4 @@
+---
 name: radar-navigation
 description: Enforce radar-first source discovery for code search by using exact anchors from `radar query` before any broad scan.
 license: MIT
