@@ -5,12 +5,11 @@ with Codex and Claude Code.
 
 ## Skills
 
-- `radar-install`: installs or updates the `rdar` crate and verifies the
-  resulting `radar` command.
-- `radar-bootstrap`: maps the current repository with an already-installed
-  `radar` command.
-- `radar-navigation`: runs `radar query` before broad code search and verifies
-  fallback answers in source.
+| Skill | Scope |
+| --- | --- |
+| [`radar-install`](https://www.skills.sh/sanix-darker/radar-skills/radar-install) | Machine setup only: install, repair, or update the `rdar` crate and verify the resulting `radar` command. It does not map repositories. |
+| [`radar-bootstrap`](https://www.skills.sh/sanix-darker/radar-skills/radar-bootstrap) | Repository setup only: with `radar` already installed, run `radar map` and `radar check`. It does not install software or handle code search. |
+| [`radar-navigation`](https://www.skills.sh/sanix-darker/radar-skills/radar-navigation) | Daily code navigation: run `radar query` before broad search and verify fallback answers in source. |
 
 Installation and repository setup are separate on purpose: install once per
 machine, bootstrap once per repository, then use navigation for daily work.
