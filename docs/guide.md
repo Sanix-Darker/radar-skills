@@ -99,9 +99,8 @@ cargo install --locked --force rdar
 ```
 
 If Cargo is unavailable, `radar-install` stops instead of silently installing
-a toolchain. Install Rust/Cargo or use a compatible checksummed artifact
-documented at <https://radar.sanixdk.xyz>, then rerun installation verification
-and bootstrap.
+a toolchain. Install Rust/Cargo, rerun `radar-install`, then bootstrap the
+repository.
 
 Verify the flow end to end with the checks the skill itself uses:
 
@@ -167,7 +166,7 @@ the format is that the answer is a path you can open, not a paraphrase.
 | --- | --- |
 | `radar: command not found` | Run `radar-install`. |
 | Update or repair requested | Run `cargo install --locked --force rdar`, then `radar --version`. |
-| Cargo unavailable | Install Rust/Cargo or use a compatible checksummed artifact documented at <https://radar.sanixdk.xyz>. |
+| Cargo unavailable | Install Rust/Cargo, then rerun `radar-install`. |
 | Stale or wrong anchors | Run `radar refresh`, then `radar query` again. |
 | Skills not picked up by an agent | Re-run the install in the project: `npx skills add Sanix-Darker/radar-skills -a codex -a claude-code`. |
 

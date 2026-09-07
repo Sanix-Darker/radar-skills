@@ -48,8 +48,7 @@ radar query "where is the auth boundary?"
 ```
 
 `rdar` is the crates.io source package; it installs the `radar` binary. If
-Cargo is unavailable, install Rust/Cargo or use a checksummed prebuilt artifact
-documented at <https://radar.sanixdk.xyz>.
+Cargo is unavailable, install Rust/Cargo, then rerun `radar-install`.
 
 ## Docs
 
