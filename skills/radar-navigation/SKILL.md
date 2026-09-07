@@ -1,11 +1,9 @@
 ---
 name: radar-navigation
-description: Run Radar before repo code search; stop on finals; verify fallback source.
+description: Query Radar before code search; stop on finals; verify fallbacks.
 license: MIT
 ---
 
-# radar navigation
-
-1. Before grep/rg/find/globs/tree code search, run `radar query "<task>" --path .`. `FINAL SOURCE ANCHOR`/`FINAL REPOSITORY OVERVIEW` is final unless source detail is needed.
-2. Miss: check `.radar/ROUTES.md`, `.radar/SYMBOLS.md`, then root `MAP.md`; batch reads and peek MAP frontmatter only.
-3. Maps route, source answers: state expected signatures, verify fallback anchors, `radar refresh` stale maps, and record solved misses with `radar route add "<task>" <file#symbol>`.
+1. Before grep/rg/find/globs/tree, run `radar query "<task>" --path .`.
+2. `FINAL SOURCE ANCHOR`/`FINAL REPOSITORY OVERVIEW` stops unless source is needed.
+3. Miss: `.radar/ROUTES.md` -> `.radar/SYMBOLS.md` -> root `MAP.md`. Batch reads; peek MAP frontmatter only. State expected signatures, verify anchors, refresh stale maps, and record with `radar route add "<task>" <file#symbol>`.
