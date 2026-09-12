@@ -1,6 +1,6 @@
 ---
 name: radar-bootstrap
-description: Map/refresh a repository with installed Radar; never install/update or search code.
+description: Repository maps only with installed Radar; never install/update or search.
 license: MIT
 ---
 

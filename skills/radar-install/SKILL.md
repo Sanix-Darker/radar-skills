@@ -1,6 +1,6 @@
 ---
 name: radar-install
-description: Install, repair, or update Radar from crates.io; machine changes require authorization.
+description: Install/update Radar from crates.io only; never map or search.
 license: MIT
 ---
 
@@ -10,4 +10,4 @@ license: MIT
 4. Run `cargo install --locked rdar`; `--force` only for explicit update/repair.
 5. Verify `radar --version`; report Cargo's bin directory if absent from PATH.
 
-Do not map; use `radar-bootstrap`.
+Maps: `radar-bootstrap`. Search: `radar-navigation`.
