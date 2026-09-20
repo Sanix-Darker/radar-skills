@@ -13,7 +13,7 @@ Both describe `Sanix-Darker/radar-skills`, a skill pack for [skills.sh](https://
 
 **Your agent greps the whole repo. Radar asks the map first.**
 
-`radar-skills` is a three-skill pack that makes Codex and Claude Code resolve
+`radar-skills` is a four-skill pack that makes Codex and Claude Code resolve
 code-search questions from a source-verifiable map before they fall back to
 broad search. One install per project:
 
@@ -28,6 +28,8 @@ What you get:
   `radar check`.
 - `radar-navigation` makes every code-search task start with
   `radar query "..."`, which returns answers anchored to a file and symbol.
+- `radar-metrics` reports an occasional repository context-savings estimate in
+  tokens and money without pretending it is session billing.
 
 Same question, same anchor, on both agents, in every session. Radar site:
 <https://radar.sanixdk.xyz>. Repo: <https://github.com/Sanix-Darker/radar-skills>.
@@ -50,13 +52,14 @@ source anchor you can open. The same question lands on the same anchor on
 every machine and in every session.
 
 The pack targets Codex and Claude Code, and anything else that reads the
-skills convention. It contains three skills:
+skills convention. It contains four skills:
 
 | Skill | What it does |
 | --- | --- |
 | `radar-install` | Installs, repairs, or updates the `radar` binary from the crates.io `rdar` source package, then verifies `radar --version`. |
 | `radar-bootstrap` | Requires an installed `radar`, maps the current repository with `radar map`, and validates it with `radar check`. |
 | `radar-navigation` | Enforces radar-first discovery: run `radar query` before any broad scan, treat the returned source anchor as authoritative, refresh stale artifacts with `radar refresh`, and record new routes with `radar route add`. |
+| `radar-metrics` | Runs the opt-in status snapshot when given an input price, then reports estimated avoided context tokens and money with its baseline and rate. |
 
 Run installation once per machine and bootstrap once per repository. Rerun
 bootstrap after a re-clone or when the map needs rebuilding.
@@ -136,6 +139,9 @@ After bootstrap, `radar-navigation` holds this order on both agents:
    # after the miss is resolved
    radar route add "<task>" <file#symbol>
    ```
+5. Near handoff after substantial navigation, if an input-token price is
+   already available, run `radar-metrics` once. Skip one-off queries and never
+   report it after every command.
 
 An illustrative session in either agent:
 
@@ -148,6 +154,19 @@ Agent: radar query "how does verify_token work?"
 
 The anchor names in your session come from your repository's MAP. The point of
 the format is that the answer is a path you can open, not a paraphrase.
+
+### Savings checkpoint
+
+Invoke `radar-metrics` with a positive input price in USD per million tokens,
+for example `radar-metrics 1.75`. It runs:
+
+```bash
+radar status --input-usd-per-million 1.75
+```
+
+The `savings` row compares the supported source corpus with generated map
+bodies. It is a current repository snapshot, not observed chat usage, money
+spent, cumulative savings, or an invoice. Use provider usage logs for billing.
 
 ### Why teams keep it
 

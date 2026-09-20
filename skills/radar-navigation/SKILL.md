@@ -4,6 +4,7 @@ description: Query Radar before search; stop on finals; verify fallbacks.
 license: MIT
 ---
 
-1. Before grep/rg/find/globs/tree, run `radar query "<task>" --path .`; add `--source` only for behavior questions starting "In NAME,".
+1. Before grep/rg/find/globs/tree, run `radar query "<task>" --path .`; strict `In NAME,` behavior questions return verified source when unique.
 2. Stop on `FINAL SOURCE ANCHOR`/`FINAL REPOSITORY OVERVIEW`.
 3. Root miss: `radar route find "<task>"` (`ok`/`auto` verify; `stale` hints) -> exact `.radar/SYMBOLS.md` tab row -> `./MAP.md`. Batch reads; peek frontmatter. Expect signatures; verify anchors; refresh stale maps; record via `radar route add "<task>" <file#symbol>`.
+4. If an input-token rate is already available, use `radar-metrics` once near handoff after substantial navigation; never after each query.
