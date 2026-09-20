@@ -59,7 +59,7 @@ skills convention. It contains four skills:
 | `radar-install` | Installs, repairs, or updates the `radar` binary from the crates.io `rdar` source package, then verifies `radar --version`. |
 | `radar-bootstrap` | Requires an installed `radar`, maps the current repository with `radar map`, and validates it with `radar check`. |
 | `radar-navigation` | Enforces radar-first discovery: run `radar query` before any broad scan, treat the returned source anchor as authoritative, refresh stale artifacts with `radar refresh`, and record new routes with `radar route add`. |
-| `radar-metrics` | Runs the opt-in status snapshot when given an input price, then reports estimated avoided context tokens and money with its baseline and rate. |
+| `radar-metrics` | Resolves current official model input pricing, runs the opt-in status snapshot, then reports estimated avoided context tokens and money with its baseline and rate. |
 
 Run installation once per machine and bootstrap once per repository. Rerun
 bootstrap after a re-clone or when the map needs rebuilding.
@@ -139,9 +139,9 @@ After bootstrap, `radar-navigation` holds this order on both agents:
    # after the miss is resolved
    radar route add "<task>" <file#symbol>
    ```
-5. Near handoff after substantial navigation, if an input-token price is
-   already available, run `radar-metrics` once. Skip one-off queries and never
-   report it after every command.
+5. Near handoff after substantial navigation, run `radar-metrics` once. It
+   resolves current official model input pricing itself. Skip one-off queries
+   and never report it after every command.
 
 An illustrative session in either agent:
 
@@ -157,16 +157,20 @@ the format is that the answer is a path you can open, not a paraphrase.
 
 ### Savings checkpoint
 
-Invoke `radar-metrics` with a positive input price in USD per million tokens,
-for example `radar-metrics 1.75`. It runs:
+Invoke `radar-metrics` without a price. The skill identifies the active model
+when available, reads its current standard uncached input price from the
+provider's official pricing page, then runs:
 
 ```bash
-radar status --input-usd-per-million 1.75
+radar status --input-usd-per-million RATE
 ```
 
 The `savings` row compares the supported source corpus with generated map
 bodies. It is a current repository snapshot, not observed chat usage, money
-spent, cumulative savings, or an invoice. Use provider usage logs for billing.
+spent, cumulative savings, or an invoice. If the exact model is unavailable,
+the skill labels its current provider coding-model reference. It never asks the
+user for a rate or guesses when official pricing cannot be reached. Use
+provider usage logs for billing.
 
 ### Why teams keep it
 

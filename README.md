@@ -47,7 +47,7 @@ radar --version
 cd your-project
 radar map
 radar query "where is the auth boundary?"
-radar status --input-usd-per-million 1.75
+radar-metrics
 ```
 
 `rdar` is the crates.io source package; it installs the `radar` binary. If
