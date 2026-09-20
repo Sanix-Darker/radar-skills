@@ -50,6 +50,10 @@ radar query "where is the auth boundary?"
 radar-metrics
 ```
 
+The metrics handoff is a compact terminal-style context-delta panel. Counts
+use `k`, `M`, `B`, or `T`; the skill resolves and links current official model
+pricing itself.
+
 `rdar` is the crates.io source package; it installs the `radar` binary. If
 Cargo is unavailable, install Rust/Cargo, then rerun `radar-install`.
 

@@ -172,6 +172,11 @@ the skill labels its current provider coding-model reference. It never asks the
 user for a rate or guesses when official pricing cannot be reached. Use
 provider usage logs for billing.
 
+The handoff is rendered as a terminal-style `RADAR // CONTEXT DELTA` panel with
+a 20-cell reduction bar, source/map/avoided token rows, estimated value, and
+model rate. Every count uses up to three significant digits plus `k`, `M`,
+`B`, or `T`; values roll over instead of displaying forms such as `1000k`.
+
 ### Why teams keep it
 
 - Deterministic. The same query resolves the same way for every engineer and
