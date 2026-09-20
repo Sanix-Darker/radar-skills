@@ -13,8 +13,24 @@ license: MIT
    unavailable and report no money estimate rather than guessing.
 3. At repository root run
    `radar status --input-usd-per-million RATE`.
-4. Report the model/rate/source and the `savings` row once, including its
-   `baseline`, `avoided`, `reduction`, `usd`, and `rate` fields.
+4. Render one compact terminal-style panel, not the raw row. Abbreviate every
+   displayed count with up to three significant digits: `k`, `M`, `B`, then
+   `T`; never print `1000k` when `1M` applies. Use a 20-cell bar rounded from
+   `reduction` (`█` saved, `░` retained):
+
+   ```text
+   RADAR // CONTEXT DELTA
+   [████████████████████] 98.64%
+   SOURCE   ~361k tok
+   MAPS     ~4.92k tok
+   AVOIDED  ~356k tok
+   VALUE    ~$0.445493
+   MODEL    GPT-5 · $1.25/MTok
+   MODE     full-source → maps · estimate
+   ```
+
+   Follow it with the official pricing link. Preserve `~` on estimates and
+   compact money with `k`, `M`, `B`, or `T` only when it reaches 1,000.
 5. Call it an estimated repository snapshot, not observed session usage,
    money spent, or an invoice. Do not accumulate snapshots.
 
